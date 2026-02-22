@@ -1,0 +1,67 @@
+# ========== 本地/实验目录（不上传） ==========
+new_predict_model/
+
+# ========== Deep3D / AlbedoGAN 合并后的子目录（由用户本地放入，不上传） ==========
+# 使用前需将 Deep3D 全部文件移入 bfm_transform，将 AlbedoGAN 全部文件移入 flame_transform
+bfm_transform/*/
+flame_transform/*/
+vision_figure/R4_Compare_Methods/
+vision_figure/baseline_compare_flame/
+vision_figure/beautified_bfm/
+vision_figure/beautified_bfm_pose/
+
+# ========== 运行生成的训练与预测结果 ==========
+**/trainloss*.txt
+**/predict_score_result/
+**/beaut_train.xlsx
+**/train_result.txt
+**/test_result.txt
+**/all_result.txt
+optuna_ml5folds.db
+
+# ========== 训练得到的模型（可选：若希望上传示例 pkl 可注释掉） ==========
+# **/*.pkl
+
+# ========== 聚类/可视化输出 ==========
+**/center.txt
+
+# ========== 演示与中间产物 ==========
+**/coef2mesh_demo/*.obj
+**/coef2mesh_demo/*.txt
+demo/**/*.obj
+demo/**/modify_*.txt
+**/beautified_bfm_pose/*.obj
+**/modify_*_kpt2d.txt
+**/modify_*_kpt3d.txt
+
+# ========== 大型数据与权重（按需取消注释） ==========
+# *.xlsx
+# *.mat
+# *.pth
+# BFM/
+
+# ========== Python ==========
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# ========== 环境与 IDE ==========
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# ========== Jupyter ==========
+.ipynb_checkpoints/
+
+# ========== 系统与临时 ==========
+.DS_Store
+Thumbs.db
+*.log

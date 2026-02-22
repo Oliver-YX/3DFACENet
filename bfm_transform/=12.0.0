@@ -1,0 +1,4 @@
+Looking in indexes: https://pypi.tuna.tsinghua.edu.cn/simple, https://mirrors.aliyun.com/pypi/simple/
+Collecting cupy-cuda11x
+  Downloading https://mirrors.aliyun.com/pypi/packages/7f/c2/6fd5d3d5f6a9318e68b7e93258caeaf42be03fc91eb44a6a4c3b7ba10c29/cupy_cuda11x-13.4.1-cp39-cp39-manylinux2014_x86_64.whl (99.3 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━                62.4/99.3 MB 17.3 MB/s eta 0:00:03
