@@ -48,11 +48,11 @@ def process_one(image_path: str, output_folder: str):
             hull = cv2.convexHull(pts)
             cv2.fillConvexPoly(mask, hull, 255)
         else:
-            # no face detected → leave mask all‐zeros
+            # no face detected then leave mask all‐zeros
             print(f"[WARN] no face detected in {name}")
 
     os.makedirs(output_folder, exist_ok=True)
-    out_path = os.path.join(output_folder, f"{name}.png")
+    out_path = os.path.join(output_folder, f"{name}.png") 
     cv2.imwrite(out_path, mask)
     
 def main():

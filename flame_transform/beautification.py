@@ -474,7 +474,6 @@ def deca_generate(args):
     args.use_mica = True
     
     ####single
-    #AM58
     # name = args.name
     # mat_name = f"{name}.mat"
     # img_path = os.path.join(args.inputpath, f"{name}.png")
