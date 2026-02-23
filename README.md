@@ -45,13 +45,13 @@ Scripts use placeholder paths (e.g. `your_location`, `your_save_path`). **Replac
 | | `directory` | Directory containing 3D reconstruction `.mat` results (one `.mat` per image). |
 | | `train_file`, `test_file` | Paths to SCUT-FBP5500 train/test split files (e.g. `train.txt`, `test.txt`). |
 | **train_prediction_model.py** | `save_path` | Where to save trained model and `flame_trainloss.txt`. |
-| | `directory` | Folder of reconstruction `.mat` files. |
+| | `directory` | Folder of reconstruction faces `.mat` files. |
 | | `YOUR_COEF_ROOT` | Folder containing `train_coef.xlsx`, `test_coef.xlsx`, `all_coef.xlsx` (if you already have them). |
 | **train_prediction_model_5folds.py** | `save_path` | Output directory for fold models and `trainloss.txt`. |
 | | `directory` | Folder of `.mat` files for 5-fold training. |
 | | `cross_val_base_dir` | SCUT-FBP5500 5-fold split root (e.g. `.../5_folders_cross_validations_files`). |
 | **bfm_transform/transfor2mesh_all.py** | `all_file_path` | Path to coefficient Excel (e.g. `bfm_coefficient/all_coef.xlsx`) or set to `your_location/all_coef.xlsx`. |
-| **bfm_transform/transfor2mesh_all.py** (main block) | `folder_path` | Input folder with images (and optional `mat/`, `detections/`). |
+| | `folder_path` | Input folder with images (and optional `mat/`, `detections/`). |
 | | `save_folder` | Output folder for beautified meshes/images. |
 | **bfm_transform/transfor2mesh_all_auto_k.py** | `all_file_path` | Coefficient Excel path. |
 | | `folder_path`, `save_folder` | Input image folder and output folder for beautified results. |
@@ -66,8 +66,6 @@ Scripts use placeholder paths (e.g. `your_location`, `your_save_path`). **Replac
 | **flame_transform/img_2_tex.py** | `savefolder`, `inputpath` | Output and input directories for texture extraction. |
 | **bfm_coefficient/visualizaiton/** (attractive_center_clustering*.py) | `YOUR_COEF_ROOT` | Folder containing `all_coef.xlsx`. |
 | | `YOUR_VIZ_SAVE_PATH` | Where to save clustering/visualization figures. |
-| **vis_network.py** | `YOUR_MODEL_ROOT` | Directory with `alexnet.pth`, `resnet18.pth`, `HMTNet.pth`. |
-| **param_compute.py** | `model_path` | Path to saved SVR `.pkl` model. |
 
 ---
 
