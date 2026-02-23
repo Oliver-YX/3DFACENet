@@ -38,20 +38,18 @@ def move_towards_closest_vector_fix(vector0, centers, k, name, device):
     """
     Move vector0 towards the closest center in centers by k percent.
 
-    :param vector0: torch.Tensor 或可转为 Tensor 的 array，shape=[D]
-    :param centers: dict[str, Tensor 或 array]，各中心向量
-    :param k: float，移动比例（0-100）
+    :param vector0: torch.Tensor or array that can be converted to Tensor, shape=[D]
+    :param centers: dict[str, Tensor or array]
+    :param k: float, move percentage (0-100)
     :param name: unused here
-    :param device: 设备字符串，比如 'cuda:0' 或 'cpu'
-    :return: torch.Tensor，更新后的向量（在同一个 device 上）
+    :param device: device string, e.g. 'cuda:0' or 'cpu'
+    :return: torch.Tensor, updated vector (on the same device)
     """
-    # 1) 转成 Tensor 并搬到同一个设备
     if not torch.is_tensor(vector0):
         vector0 = torch.tensor(vector0, device=device, dtype=torch.float32)
     else:
         vector0 = vector0.to(device, dtype=torch.float32)
 
-    # 2) 把所有 center 也转成 Tensor 并搬到同一设备
     centers_t = {}
     for nm, c in centers.items():
         if not torch.is_tensor(c):
@@ -60,28 +58,23 @@ def move_towards_closest_vector_fix(vector0, centers, k, name, device):
             c_t = c.to(device, dtype=torch.float32)
         centers_t[nm] = c_t
 
-    # 3) 计算到每个 center 的距离（L2 范数）
     distances = {nm: (vector0 - c_t).norm().item()
                  for nm, c_t in centers_t.items()}
 
-    # 4) 找最近的 center
     closest = min(distances, key=distances.get)
     center = centers_t[closest]
 
-    # 5) 沿着方向移动 k%
     new_vector = vector0 + (center - vector0) * (k / 100.0)
 
     return new_vector
 
 
 def move_towards_closest_vector(vector0, centers, k, name, device):
-    # 确保 vector0 是 torch.Tensor，并移动到同一个设备
     if not isinstance(vector0, torch.Tensor):
         vector0 = torch.from_numpy(vector0)
     
     vector0 = vector0.to(device)
 
-    # 检查 name 是否包含特定的字符串
     if 'AF' in name:
         closest_center = centers['AF']
         print("choose AF center")
@@ -95,7 +88,6 @@ def move_towards_closest_vector(vector0, centers, k, name, device):
         closest_center = centers['CM']
         print("choose to CM center")
     else:
-        # 提取中心向量并转换为 torch.Tensor
         center_tensors = torch.stack(list(centers.values())).to(device)
 
         closest_distance = float('inf')
@@ -113,13 +105,11 @@ def move_towards_closest_vector(vector0, centers, k, name, device):
 
 
 def move_towards_closest_vector_C(vector0, centers, k, name, device):
-    # 确保 vector0 是 torch.Tensor，并移动到同一个设备
     if not isinstance(vector0, torch.Tensor):
         vector0 = torch.from_numpy(vector0)
     
     vector0 = vector0.to(device)
 
-    # 检查 name 是否包含特定的字符串
     # if 'F' in name:
     #     closest_center = centers['CF']
     #     print("choose to CF center")
@@ -131,10 +121,7 @@ def move_towards_closest_vector_C(vector0, centers, k, name, device):
     move_distance = (closest_center - vector0) * (k / 100)
     new_vector = vector0 + move_distance
     return new_vector
-
-
-
-###100维
+       
 ######### beauty 4.0 female group1(CF)
 vector1 = [ 1.15978542, -0.18746921, -0.54838555,  0.28252789,  0.14911615,
          0.13715184,  0.32338832,  0.59628093, -0.33601529,  0.15627049,
@@ -474,7 +461,7 @@ centers = {
     'CM': torch.from_numpy(np.array(vector3)).float()
 }
  
-# ################################################         美化示例           ####################################
+# ##########################  beautify demo  ####################################
 ######  
 
 def deca_generate(args):
@@ -494,7 +481,7 @@ def deca_generate(args):
     
     ####multy
     img_path = args.inputpath
-    k = args.k  # 移动 50% 的距离
+    k = args.k  # move 50% of the distance towards the closest vector
     
     testdata = datasets.TestData(img_path, iscrop=args.iscrop, face_detector=args.detector, sample_step=args.sample_step, crop_size=224,
                                  use_mica=args.use_mica)
@@ -527,13 +514,12 @@ def deca_generate(args):
             codedict = deca.encode(torchvision.transforms.Resize(224)(images), arcface_inp)
             codedict['images'] = images
         
-        ##### 还需要修改deca.py对应代码
         # acc = "fine" 
         acc = "croase" #"fine"
         
-        # 种族对应
+        ## race corresponding
         # codedict["mica_shape"] = move_towards_closest_vector_fix(codedict["mica_shape"], centers, k, name, device)
-        ## 同一欧洲
+        ## same europe
         codedict["mica_shape"] = move_towards_closest_vector_C(codedict["mica_shape"], centers, k, name, device)
         codedict["mica_exp"] = torch.zeros_like(codedict["mica_exp"]).to(device)
         
@@ -553,8 +539,6 @@ def deca_generate(args):
         else: 
             opdict, visdict = deca.decode_with_texture_beautification(codedict, name, render_orig = args.render_orig, original_image = codedict['images'] ) #tensor 
         
-
-        # 处理 opdict 中的张量，确保它们是 tensor 类型并且在同一设备上
         for key in opdict.keys():
             if isinstance(opdict[key], torch.Tensor):
                 opdict[key] = opdict[key].detach().cpu()
@@ -613,12 +597,11 @@ def deca_generate(args):
         # if args.saveImages:
         #     for vis_name in ['inputs', 'rendered_images']:
         #         if vis_name not in visdict:
-        #             continue
-        #         # 确保输出目录存在
+        #             continue  
         #         vis_dir = os.path.join(savefolder, str(k), 'vis', vis_name)
         #         os.makedirs(vis_dir, exist_ok=True)
 
-        #         # 构建文件路径并保存
+        #         # build file path and save
         #         imgpath = os.path.join(vis_dir, f"{name}.jpg")
         #         img = util.tensor2image(visdict[vis_name][0])
         #         cv2.imwrite(imgpath, img)

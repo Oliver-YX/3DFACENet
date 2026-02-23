@@ -9,6 +9,7 @@ vision_figure/R4_Compare_Methods/
 vision_figure/baseline_compare_flame/
 vision_figure/beautified_bfm/
 vision_figure/beautified_bfm_pose/
+bfm_coefficient/train_models/
 
 # ========== 运行生成的训练与预测结果 ==========
 **/trainloss*.txt
