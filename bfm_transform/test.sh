@@ -1,3 +1,4 @@
+############# test on NoW #########
 python test_now.py --input_folder IMG_0092  --output_folder /workspace/AdBRC/xieyuan/Beautytask/3DFACENet/bfm_transform/coef2mesh_demo/NoW_TEST_CM/IMG_0092
 python test_now.py --input_folder IMG_0151  --output_folder /workspace/AdBRC/xieyuan/Beautytask/3DFACENet/bfm_transform/coef2mesh_demo/NoW_TEST_CM/IMG_0151
 python test_now.py --input_folder IMG_0214  --output_folder /workspace/AdBRC/xieyuan/Beautytask/3DFACENet/bfm_transform/coef2mesh_demo/NoW_TEST_CM/IMG_0214
